@@ -1,0 +1,9 @@
+[general]
+contrib=contrib-title-conventional-commits,CT1
+
+# set the line-length it enforces to 80
+[title-max-length]
+line-length=80
+
+[body-min-length]
+min-length=5

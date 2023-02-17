@@ -1,0 +1,11 @@
+-r common.txt
+
+#Developer Dependencies
+isort
+autoflake
+flake8
+flake8-quotes
+pre-commit
+gitlint
+pytest
+pytest-cov

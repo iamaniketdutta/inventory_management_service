@@ -1,0 +1,13 @@
+simple-settings==1.2.0
+Flask-RESTful==0.3.9
+Flask==2.2.2
+simplejson==3.18.0
+flask-cors==3.0.10
+typing-extensions==4.4.0
+flask_swagger_ui==4.11.1
+Pydantic[email]
+Flask-Pydantic
+sqlalchemy
+numerize
+mysql-connector-python
+mysqlclient
