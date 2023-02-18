@@ -1,8 +1,10 @@
-from sqlalchemy import and_
+from sqlalchemy import and_, asc, desc
 from storage.db_models import MenTshirt
 
 
-def create_inventory_query(session, filter):
+def create_inventory_query(session, context):
+    filter = context.filter
+    sort_column = getattr(MenTshirt, context.order_by)
     and_conditions = []
     if filter.get("brand"):
         and_conditions.append(MenTshirt.brand.in_(filter.get("brand", [])))
@@ -17,13 +19,18 @@ def create_inventory_query(session, filter):
     and_conditions.append(
         MenTshirt.out_of_stock == filter.get("out_of_stock", False),
     )
-    return session.query(
-        MenTshirt.brand,
-        MenTshirt.additionalInfo,
-        MenTshirt.original_price,
-        MenTshirt.discounted_price,
-        MenTshirt.discount_percentage,
-        MenTshirt.rating,
-        MenTshirt.review_count,
-        MenTshirt.out_of_stock,
-    ).filter(and_(*and_conditions))
+    sort = asc(sort_column) if context.sort_type == "asc" else desc(sort_column)
+    return (
+        session.query(
+            MenTshirt.brand,
+            MenTshirt.additionalInfo,
+            MenTshirt.original_price,
+            MenTshirt.discounted_price,
+            MenTshirt.discount_percentage,
+            MenTshirt.rating,
+            MenTshirt.review_count,
+            MenTshirt.out_of_stock,
+        )
+        .filter(and_(*and_conditions))
+        .order_by(sort)
+    )

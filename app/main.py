@@ -7,7 +7,6 @@ from configuration.constants import HeaderConstants
 from configuration.route import api_v1_bp
 from flask import Flask, Response, json, jsonify, request
 from flask_cors import CORS
-from flask_swagger_ui import get_swaggerui_blueprint
 from simple_settings import settings
 from utilities import messages
 from utilities.exceptions import ExceptionBase
@@ -22,17 +21,6 @@ from utilities.logging_util import logger
 from utilities.response_maker import MakeResponse
 
 
-def init_swagger(app_):
-    # swagger specific #
-    SWAGGER_URL = "/api/v1/docs"
-    API_URL = "/static/swagger.json"
-    SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
-        SWAGGER_URL, API_URL, config={"app_name": "inventory_management_service"}
-    )
-    app_.register_blueprint(SWAGGERUI_BLUEPRINT)
-    return app_
-
-
 def create_app():
     app_ = Flask(__name__)
     env = app_.config["ENV"]
@@ -40,7 +28,6 @@ def create_app():
 
     # Register v1 api blueprint
     app_.register_blueprint(api_v1_bp)
-    app_ = init_swagger(app_)
     return app_
 
 
@@ -91,7 +78,6 @@ def authenticate_request():
 def allow_origin(response):
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Credentials"] = "true"
-    response.headers["Content-Type"] = "application/json; charset=utf-8"
     response.headers.add(
         "Access-Control-Allow-Headers",
         "Content-Type, Authorization, x-auth-status, user-token",

@@ -10,7 +10,8 @@ class GetQueryModel(BaseModel):
     page_limit: Optional[int] = Field(
         ge=Numeric.ONE.value, default=Numeric.TWENTY.value
     )
-    order_by: Optional[str]
+    order_by: Optional[str] = "idx"
+    sort_type: Optional[str] = "asc"
 
 
 class InventoryGetResp(BaseModel):

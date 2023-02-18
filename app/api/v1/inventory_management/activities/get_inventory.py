@@ -18,8 +18,8 @@ class GetInventory(ActivityBase):
         # initialize the database instance
         db = DbManager()
 
-        # create queries using filter
-        inventory_query = create_inventory_query(db.session(), self.context.filter)
+        # create queries using filter, order_by
+        inventory_query = create_inventory_query(db.session(), self.context)
 
         # paginate the query
         obj = db.paginate(

@@ -45,5 +45,3 @@ python3 -m pytest --cov-report term-missing --cov=app
 ```
 Git commit message format: git commit -m "feat: :gitemoji: title" -m "message"
 for git emoji, please refer: https://gitmoji.dev/
-
-To view the swagger docs visit http://localhost:5000/api/v1/docs
