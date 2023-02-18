@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from configuration.constants import Numeric
 from pydantic import BaseModel, Field
-from pydantic.types import StrictBool, StrictInt
+from pydantic.types import UUID4, StrictBool, StrictInt
 
 
 class GetQueryModel(BaseModel):
@@ -33,3 +33,4 @@ class GetInventoryResponse(BaseModel):
 class SuccessResponseGet(BaseModel):
     data: Optional[GetInventoryResponse] = {}
     success: StrictBool = True
+    request_id: UUID4

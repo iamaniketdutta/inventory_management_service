@@ -20,7 +20,9 @@ class Inventory(Resource):
         try:
             filter = request.get_json() if request.is_json else {}
             logger.info(f"GetInventory Payload: {query}, {filter}")
-            return SuccessResponseGet(data=GetInventory().execute(query, filter=filter))
+            return SuccessResponseGet(
+                data=GetInventory().execute(query, filter=filter), request_id=request.id
+            )
         except InvalidPayloadException as ie:
             logger.info(
                 "GetInventory InvalidPayloadException raised. "
